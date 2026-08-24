@@ -54,7 +54,17 @@ Mapeamento regra→risco esperado: **fracionamento OU 2+ operações atípicas �
 
 ## Limitações conhecidas
 
-*(preenchido conforme o desenvolvimento avança)*
+- **A LLM ainda pode "calcular" por conta própria:** na Parte B do Nível 1, mesmo instruído a não
+  recalcular nada, o modelo derivou um número ausente do dossiê ("94,2% do volume concentrado no dia" =
+  54.200/57.500). O valor está certo, mas o validador atual confere **estrutura**, não a **aritmética**
+  dos números citados. Em produção eu acrescentaria uma checagem que extrai os números do parecer e os
+  confere contra o dossiê, rejeitando pareceres com valores não rastreáveis.
+- **Operações sem data são invisíveis para a Regra 1:** decisão consciente (não há como agrupar por dia),
+  mas significa que um fracionamento feito em operações com data corrompida passaria despercebido. Com
+  dados reais, o pipeline de ingestão é que teria de garantir a data.
+- **Limiares fixos e universais:** R$ 50k/20k/5× mediana valem para todos os clientes; um perfil de
+  pessoa jurídica com alto giro dispara falso positivo com facilidade (é o que o confronto da Parte D
+  do Nível 2 investiga).
 
 ## O que faria com mais tempo
 

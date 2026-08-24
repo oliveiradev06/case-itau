@@ -1,14 +1,14 @@
 candidato: Joao Oliveira
-modelo_usado: gemini-2.5-flash
-provedor: google-ai-studio
+modelo_usado: openai/gpt-oss-120b
+provedor: groq
 horas_dedicadas: 0  # atualizado ao final
 
 nivel_1:
   limpeza_dados:      {status: completo, onde: "nivel_1/nivel_1.ipynb, células 2-4"}
   regras_pandas:      {status: completo, onde: "nivel_1/nivel_1.ipynb, célula 7"}
   validacao_regras:   {status: completo, onde: "nivel_1/nivel_1.ipynb, células 9-10"}
-  saida_estruturada:  {status: nao_feito, plano: "docs/DECISOES.md"}
-  comparacao_prompts: {status: nao_feito, plano: "docs/DECISOES.md"}
+  saida_estruturada:  {status: completo, onde: "nivel_1/nivel_1.ipynb, células 13-15 (validação + retry corretivo)"}
+  comparacao_prompts: {status: completo, onde: "nivel_1/nivel_1.ipynb, células 14-16 e conclusão da Parte B"}
 
 nivel_2:
   regras_em_escala: {status: completo, onde: "nivel_2/regras.py + outputs/nivel2_top10_clientes.csv"}

@@ -29,10 +29,10 @@ MAX_RODADAS_FERRAMENTA = 6   # limite de idas e vindas de tool calls por cliente
 MAX_TENTATIVAS_JSON = 2      # re-tentativas se o parecer vier malformado
 PAUSA_ENTRE_CLIENTES_S = 8   # respeita o rate limit da camada gratuita (~10 req/min)
 
-# Preços de referência do tier PAGO do modelo default (USD por 1M tokens), só para
-# estimar custo; na camada gratuita o custo real é zero.
-PRECO_ENTRADA_USD_1M = 0.30
-PRECO_SAIDA_USD_1M = 2.50
+# Preços de referência do tier PAGO do modelo default openai/gpt-oss-120b no Groq
+# (USD por 1M tokens), só para estimar custo; na camada gratuita o custo real é zero.
+PRECO_ENTRADA_USD_1M = 0.15
+PRECO_SAIDA_USD_1M = 0.75
 
 NIVEIS_VALIDOS = {"baixo", "medio", "alto"}
 
@@ -68,7 +68,7 @@ def _cliente() -> OpenAI:
 
 
 def _modelo() -> str:
-    return os.environ.get("LLM_MODEL", "gemini-2.5-flash")
+    return os.environ.get("LLM_MODEL", "openai/gpt-oss-120b")
 
 
 def _chamar_com_retry(client: OpenAI, **kwargs):
