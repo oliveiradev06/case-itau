@@ -1,12 +1,12 @@
-candidato: Joao Pedro Oliveira
+candidato: Joao Oliveira
 modelo_usado: gemini-2.5-flash
 provedor: google-ai-studio
 horas_dedicadas: 0  # atualizado ao final
 
 nivel_1:
-  limpeza_dados:      {status: nao_feito, plano: "docs/DECISOES.md#limpeza-de-dados-nivel-1"}
-  regras_pandas:      {status: nao_feito, plano: "docs/DECISOES.md"}
-  validacao_regras:   {status: nao_feito, plano: "docs/DECISOES.md"}
+  limpeza_dados:      {status: completo, onde: "nivel_1/nivel_1.ipynb, células 2-4"}
+  regras_pandas:      {status: completo, onde: "nivel_1/nivel_1.ipynb, célula 7"}
+  validacao_regras:   {status: completo, onde: "nivel_1/nivel_1.ipynb, células 9-10"}
   saida_estruturada:  {status: nao_feito, plano: "docs/DECISOES.md"}
   comparacao_prompts: {status: nao_feito, plano: "docs/DECISOES.md"}
 
