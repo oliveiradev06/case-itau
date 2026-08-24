@@ -1,0 +1,4 @@
+pandas>=2.0
+jupyter
+openai>=1.40
+python-dotenv

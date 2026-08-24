@@ -1,0 +1,11 @@
+# Segredos — NUNCA commitar. A chave de API vive apenas no .env local.
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
