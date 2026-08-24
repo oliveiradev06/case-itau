@@ -11,7 +11,7 @@ nivel_1:
   comparacao_prompts: {status: nao_feito, plano: "docs/DECISOES.md"}
 
 nivel_2:
-  regras_em_escala: {status: nao_feito, plano: "docs/DECISOES.md"}
+  regras_em_escala: {status: completo, onde: "nivel_2/regras.py + outputs/nivel2_top10_clientes.csv"}
   ferramentas:      {status: nao_feito, plano: "docs/DECISOES.md"}
   agente:           {status: nao_feito, plano: "docs/DECISOES.md"}
   lote:             {status: nao_feito, plano: "docs/DECISOES.md"}

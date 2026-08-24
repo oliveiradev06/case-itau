@@ -23,6 +23,19 @@ Converti para BRL com a taxa fixa fornecida no próprio arquivo (5.4), em coluna
 - **Regras dependentes de data ignoram operações com data nula** (não há como agrupá-las por dia). Elas seguem contando para volume, canal e mediana.
 - **Flags no DataFrame:** `flag_fracionamento` marca cada operação que participa de um grupo (cliente, dia) enquadrado na Regra 1; `flag_valor_atipico` marca a operação individual que dispara a Regra 2.
 
+## Nível 2 — critério de "clientes mais sinalizados"
+
+O enunciado pede o top-10 "ordenados pelo número de sinalizações, com o volume total como critério de desempate", mas não define o que conta como uma sinalização. Testei dois critérios:
+
+- **Dias de fracionamento + operações atípicas:** cada dia enquadrado na Regra 1 vale 1. Resultado ruim na prática: os quatro clientes com fracionamento (CLI-002, CLI-003, CLI-017, CLI-029) empatam com quem teve **um único** outlier, e CLI-002 e CLI-003 **caem para fora do top-10** no desempate por volume — os dois casos mais graves da base ficariam sem parecer.
+- **Operações sinalizadas (critério adotado):** as flags são atribuídas a operações (como pede o Nível 1), então conto operações sinalizadas por qualquer regra. Um dia de fracionamento com 4 operações coordenadas vale 4 — o padrão orquestrado pesa mais que um outlier isolado, que é como uma mesa de PLD priorizaria.
+
+Com o critério adotado, o top-10 abre com os 4 fracionamentos (CLI-029, CLI-017, CLI-002, CLI-003), seguidos de CLI-014 (3 outliers) e dos clientes com 2 outliers. **Limitação honesta:** o corte em 10 deixa de fora o CLI-001 (11º), que tem um outlier de 15,6× a mediana — numa operação real, o tamanho do lote seria dimensionado pela capacidade da mesa, não por um número fixo.
+
+## Reuso do Nível 1 no Nível 2
+
+As regras nasceram como funções puras no notebook e migraram para `nivel_2/regras.py` sem mudança de lógica — só parametrizei o caminho do arquivo. O que eu faria diferente desde o começo: criar o módulo primeiro e fazer o notebook importar dele (uma única fonte de verdade); mantive a duplicação porque o enunciado pede o notebook autocontido com saídas, e sincronizar os dois manualmente por 24h é risco menor que reestruturar no meio.
+
 ## Stack e arquitetura
 
 - **Cliente LLM via endpoint compatível com OpenAI** (SDK `openai` + `base_url` no `.env`): Gemini e Groq expõem o mesmo contrato, então trocar de provedor é editar três variáveis — nenhuma linha de código muda. Escolhido para não acoplar o case a um fornecedor e respeitar a restrição de camada gratuita.

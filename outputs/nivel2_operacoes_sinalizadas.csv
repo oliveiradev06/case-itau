@@ -1,0 +1,38 @@
+id,cliente_id,data,valor,moeda,canal,tipo,contraparte,observacao,valor_brl,flag_fracionamento,mediana_cliente,flag_valor_atipico
+OP-00133,CLI-014,2026-03-06,23640.97,BRL,pix,pagamento,Mirante Transportes ME,,23640.97,False,2308.41,True
+OP-00301,CLI-029,2026-05-26,19418.96,BRL,ted,saque,Orion Trading SA,,19418.96,True,10337.485,False
+OP-00197,CLI-021,2026-05-12,15785.39,BRL,especie,transferencia_enviada,Mirante Trading ME,,15785.39,False,2832.545,True
+OP-00129,CLI-014,2026-03-05,13660.65,BRL,pix,transferencia_recebida,Alfa Assessoria LTDA,,13660.65,False,2308.41,True
+OP-00253,CLI-026,2026-05-17,21261.01,BRL,pix,pagamento,Solar Industria LTDA,,21261.01,False,2032.93,True
+OP-00303,CLI-017,2026-03-08,14352.98,BRL,ted,saque,Lumen Industria ME,,14352.98,True,9593.32,False
+OP-00298,CLI-003,2026-05-02,18631.47,BRL,pix,transferencia_enviada,Orion Importacao LTDA,,18631.47,True,4090.035,False
+OP-00305,CLI-017,2026-03-08,16158.41,BRL,pix,pagamento,Rubi Transportes SA,,16158.41,True,9593.32,False
+OP-00292,CLI-002,2026-05-01,14742.36,BRL,ted,transferencia_recebida,Boreal Comercio ME,,14742.36,True,5448.605,False
+OP-00293,CLI-002,2026-05-01,15186.39,BRL,pix,deposito,Mirante Consultoria SA,,15186.39,True,5448.605,False
+OP-00306,CLI-017,2026-03-08,15401.27,BRL,pix,transferencia_enviada,Boreal Comercio ME,,15401.27,True,9593.32,False
+OP-00219,CLI-023,2026-04-28,41768.17,BRL,especie,deposito,Rubi Importacao ME,,41768.17,False,3241.16,True
+OP-00008,CLI-001,2026-03-15,25110.15,BRL,especie,deposito,Beta Transportes ME,,25110.15,False,1609.155,True
+OP-00300,CLI-029,2026-05-26,19138.59,BRL,ted,deposito,Solar Importacao LTDA,,19138.59,True,10337.485,False
+OP-00049,CLI-005,2026-04-12,11988.17,BRL,especie,transferencia_recebida,Vertice Trading SA,,11988.17,False,2144.18,True
+OP-00310,CLI-013,2026-03-06,28487.76,BRL,ted,saque,Lumen Servicos LTDA,,28487.76,False,3146.225,True
+OP-00312,CLI-022,2026-05-27,5721.27,USD,ted,transferencia_recebida,Gama Transportes SA,remessa internacional,30894.858000000004,False,1909.89,True
+OP-00316,CLI-024,2026-04-24,12638.36,USD,ted,saque,Cristal Comercio LTDA,remessa internacional,68247.14400000001,False,2740.78,True
+OP-00308,CLI-028,2026-03-21,27715.48,BRL,ted,transferencia_enviada,Delta Trading LTDA,,27715.48,False,4430.25,True
+OP-00247,CLI-026,2026-03-01,12518.3,BRL,cartao,saque,Mirante Comercio ME,,12518.3,False,2032.93,True
+OP-00295,CLI-002,2026-05-01,17998.6,BRL,pix,transferencia_recebida,Tijuca Transportes ME,,17998.6,True,5448.605,False
+OP-00307,CLI-028,2026-03-21,24875.39,BRL,ted,transferencia_recebida,Estrela Assessoria LTDA,,24875.39,False,4430.25,True
+OP-00313,CLI-030,2026-03-08,14375.59,USD,ted,transferencia_recebida,Aurora Servicos SA,remessa internacional,77628.186,False,4611.07,True
+OP-00309,CLI-013,2026-03-06,26754.23,BRL,ted,deposito,Gama Consultoria SA,,26754.23,False,3146.225,True
+OP-00314,CLI-007,2026-05-12,4967.05,USD,ted,deposito,Lumen Assessoria SA,remessa internacional,26822.070000000003,False,3021.61,True
+OP-00294,CLI-002,2026-05-01,16795.74,BRL,pix,deposito,Solar Atacado SA,,16795.74,True,5448.605,False
+OP-00304,CLI-017,2026-03-08,18761.22,BRL,ted,deposito,Lumen Comercio SA,,18761.22,True,9593.32,False
+OP-00299,CLI-029,2026-05-26,14326.29,BRL,ted,transferencia_recebida,Rubi Importacao ME,,14326.29,True,10337.485,False
+OP-00315,CLI-014,2026-03-24,3900.85,USD,ted,deposito,Boreal Varejo ME,remessa internacional,21064.59,False,2308.41,True
+OP-00296,CLI-003,2026-05-02,14562.44,BRL,ted,deposito,Aurora Servicos SA,,14562.44,True,4090.035,False
+OP-00028,CLI-003,2026-05-02,1509.47,BRL,cartao,transferencia_recebida,Boreal Varejo ME,,1509.47,True,4090.035,False
+OP-00077,CLI-008,2026-03-26,18568.72,BRL,especie,saque,Boreal Varejo ME,,18568.72,False,3503.4849999999997,True
+OP-00297,CLI-003,2026-05-02,16143.34,BRL,ted,pagamento,Solar Atacado SA,,16143.34,True,4090.035,False
+OP-00317,CLI-023,2026-05-01,12114.29,USD,ted,transferencia_enviada,Estrela Transportes LTDA,remessa internacional,65417.16600000001,False,3241.16,True
+OP-00006,CLI-001,,9490.55,BRL,ted,saque,Estrela Transportes LTDA,data nao capturada pelo sistema,9490.55,False,1609.155,True
+OP-00043,CLI-005,2026-03-14,30743.97,BRL,cartao,pagamento,Cristal Comercio SA,,30743.97,False,2144.18,True
+OP-00302,CLI-029,2026-05-26,18413.84,BRL,pix,deposito,Cristal Atacado ME,,18413.84,True,10337.485,False
