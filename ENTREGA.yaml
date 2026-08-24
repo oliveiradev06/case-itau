@@ -1,7 +1,7 @@
 candidato: João Pedro Guilherme de Oliveira
 modelo_usado: openai/gpt-oss-120b
 provedor: groq
-horas_dedicadas: 8
+horas_dedicadas: 4
 
 nivel_1:
   limpeza_dados:      {status: completo, onde: "nivel_1/nivel_1.ipynb, células 2-4"}
