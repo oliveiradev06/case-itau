@@ -82,14 +82,26 @@ Mapeamento regra→risco esperado: **fracionamento OU 2+ operações atípicas �
   pessoa jurídica com alto giro dispara falso positivo com facilidade (é o que o confronto da Parte D
   do Nível 2 investiga).
 
+## Nível 3 — trilha B (servidor MCP): por que e como
+
+**Por que a trilha B:** reaproveita 100% das ferramentas prontas e testa a habilidade mais transferível
+das três trilhas — desacoplar ferramenta de agente por um protocolo padrão. Com o servidor MCP no ar,
+as mesmas ferramentas servem qualquer cliente MCP (outro agente, um IDE, o Claude Desktop), sem que o
+código delas saiba quem consome.
+
+**Como ficou:** `nivel_3/servidor_mcp.py` expõe as três funções de `nivel_2/tools.py` via stdio — o
+arquivo é só a casca de protocolo, nenhuma linha das ferramentas mudou. `nivel_3/agente_mcp.py` reusa
+o prompt, o loop e a validação do Nível 2 (import), mas **descobre** as ferramentas com `list_tools()`
+e as executa com `call_tool()` — a única mudança é o transporte.
+
+**Validação de equivalência (executada):** o mesmo cliente (CLI-002) analisado pelos dois caminhos
+produziu o mesmo nível de risco (alto) e a mesma sequência de ferramentas — registro em
+`outputs/nivel3_parecer_mcp.json`. Detalhe de versão: o SDK `mcp` 2.0 renomeou a API (`FastMCP` →
+`MCPServer`, `inputSchema` → `input_schema`) em relação à documentação corrente — vale o registro
+para quem reproduzir.
+
 ## O que faria com mais tempo
 
-- **Nível 3 — trilha B (servidor MCP):** é a que eu escolheria, porque reaproveita 100% das ferramentas
-  prontas e testa uma habilidade real de integração. Como faria: expor as três funções de `tools.py`
-  num servidor MCP via stdio (SDK `mcp` do Python), e criar uma variante do agente que descobre e chama
-  as ferramentas por uma sessão MCP em vez de import direto. Validação: rodar o mesmo lote dos 10
-  clientes pelos dois caminhos e conferir que os pareceres saem equivalentes (mesmas ferramentas
-  chamadas, mesmos números consultados).
 - **Validação aritmética dos pareceres:** extrair os números citados pela LLM e conferi-los contra o
   dossiê, rejeitando pareceres com valores não rastreáveis (fecha a limitação registrada acima).
 - **Testes unitários das regras** (pytest): casos de borda dos limiares (soma exatamente 50k, operação

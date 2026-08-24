@@ -19,8 +19,29 @@ A chave de API vive **apenas** no `.env` local (ignorado pelo git). O provedor �
 | **Nível 2A** — regras em escala + top-10 | `python nivel_2/regras.py` |
 | **Nível 2B/C** — agente + lote dos 10 clientes | `python nivel_2/agente.py` (retomável: clientes já analisados não são re-processados) |
 | **Nível 2D** — confronto regra × agente | `python nivel_2/confronto.py` |
+| **Nível 3** — agente consumindo ferramentas via MCP | `python nivel_3/agente_mcp.py CLI-002` |
 
 Os resultados de todas as execuções estão commitados em `outputs/`.
+
+### Nível 3 — como conectar ao servidor MCP
+
+O servidor (`nivel_3/servidor_mcp.py`) fala MCP por **stdio**: quem consome é que o inicia. O
+`agente_mcp.py` já faz isso sozinho; para conectar qualquer outro cliente MCP (Claude Desktop,
+IDEs, inspetores), configure:
+
+```json
+{
+  "mcpServers": {
+    "pld-tools": {
+      "command": "python",
+      "args": ["<caminho-do-repo>/nivel_3/servidor_mcp.py"]
+    }
+  }
+}
+```
+
+As três ferramentas (`historico_cliente`, `operacoes_do_dia`, `perfil_canal`) são descobertas
+automaticamente via `list_tools` — mesmas funções do Nível 2, sem nenhuma alteração.
 
 ## Estrutura
 

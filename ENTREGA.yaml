@@ -18,6 +18,6 @@ nivel_2:
   confronto:        {status: completo, onde: "nivel_2/confronto.py + outputs/nivel2_confronto.csv; análise em docs/DECISOES.md"}
 
 nivel_3:
-  trilha_escolhida: null
-  status: nao_feito
-  plano: "definir apos concluir niveis 1 e 2"
+  trilha_escolhida: B
+  status: completo
+  onde: "nivel_3/servidor_mcp.py + nivel_3/agente_mcp.py; equivalência com o caminho por import validada em outputs/nivel3_parecer_mcp.json; justificativa em docs/DECISOES.md"

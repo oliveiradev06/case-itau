@@ -1,0 +1,60 @@
+{
+  "cliente_id": "CLI-002",
+  "transporte": "mcp/stdio",
+  "parecer": {
+    "nivel_risco": "alto",
+    "tipologia_suspeita": "Possível fracionamento de operações com múltiplas transferências de alto valor via Pix/TED em único dia",
+    "red_flags": [
+      "Concentração de 60% do volume total em um único dia (2026-05-01)",
+      "Quatro operações acima de R$14.7 mil no mesmo dia",
+      "Uso intensivo de Pix (46.9% do volume total) para valores elevados",
+      "Regra de fracionamento disparada para o dia 2026-05-01"
+    ],
+    "justificativa": "O histórico do cliente mostra 14 operações totalizando R$107.965,38, porém 64.723,09 (cerca de 60%) foram realizados em 2026-05-01, atendendo ao critério de fracionamento. Nesse dia, quatro transferências/depositos de alto valor (entre R$14.7 mil e R$17.9 mil) foram efetuadas, três delas via Pix. O perfil de canal revela que 46.9% do volume total vem de Pix e 30.2% de TED, indicando forte concentração em canais eletrônicos. Esses indícios apontam para possível estruturação de operações.",
+    "ferramentas_relevantes": [
+      "historico_cliente",
+      "operacoes_do_dia",
+      "perfil_canal"
+    ]
+  },
+  "erro_validacao": null,
+  "ferramentas_usadas": [
+    {
+      "ferramenta": "historico_cliente",
+      "argumentos": {
+        "cliente_id": "CLI-002"
+      }
+    },
+    {
+      "ferramenta": "operacoes_do_dia",
+      "argumentos": {
+        "cliente_id": "CLI-002",
+        "data": "2026-05-01"
+      }
+    },
+    {
+      "ferramenta": "perfil_canal",
+      "argumentos": {
+        "cliente_id": "CLI-002"
+      }
+    }
+  ],
+  "tokens_entrada": 4380,
+  "tokens_saida": 815,
+  "latencia_s": 8.72,
+  "modelo": "openai/gpt-oss-120b",
+  "comparacao_com_import_direto": {
+    "nivel_risco_nivel2": "alto",
+    "nivel_risco_mcp": "alto",
+    "ferramentas_nivel2": [
+      "historico_cliente",
+      "operacoes_do_dia",
+      "perfil_canal"
+    ],
+    "ferramentas_mcp": [
+      "historico_cliente",
+      "operacoes_do_dia",
+      "perfil_canal"
+    ]
+  }
+}

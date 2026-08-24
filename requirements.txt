@@ -2,3 +2,4 @@ pandas>=2.0
 jupyter
 openai>=1.40
 python-dotenv
+mcp>=2.0  # nivel 3 (trilha B)
