@@ -36,6 +36,17 @@ Com o critério adotado, o top-10 abre com os 4 fracionamentos (CLI-029, CLI-017
 
 As regras nasceram como funções puras no notebook e migraram para `nivel_2/regras.py` sem mudança de lógica — só parametrizei o caminho do arquivo. O que eu faria diferente desde o começo: criar o módulo primeiro e fazer o notebook importar dele (uma única fonte de verdade); mantive a duplicação porque o enunciado pede o notebook autocontido com saídas, e sincronizar os dois manualmente por 24h é risco menor que reestruturar no meio.
 
+## Nível 2 — desenho do agente
+
+- **"Na mão", sem framework** (SDK `openai` + loop de tool calls): para uma tarefa de 3 ferramentas e um parecer, LangChain/LangGraph adicionariam camadas que escondem exatamente o que o avaliador quer ver — quem decide o quê. No loop explícito, a decisão de chamar ou não cada ferramenta é 100% do modelo (`tool_choice="auto"`), atendendo à exigência de que "chamar todas sempre é script, não agente"; o prompt de sistema instrui a aprofundar só no que os dados indicarem.
+- **Separação regra × LLM levada ao agente:** as ferramentas devolvem números prontos (pandas), incluindo o resultado das regras determinísticas; o prompt proíbe o modelo de calcular e o autoriza a **discordar das regras com justificativa** — insumo da Parte D.
+- **Camada gratuita como restrição de projeto:** pausa entre clientes, backoff exponencial em HTTP 429 e **lote retomável** — pareceres são gravados em JSONL um a um e clientes já analisados não são re-processados se a cota estourar no meio (o "cache de respostas" que o enunciado sugere, na forma que protege o caso real de falha).
+- **Custo e latência:** tokens de entrada/saída e latência registrados por cliente; custo estimado com os preços do tier pago como referência (na camada gratuita o custo real é zero) e totais analisados com pandas ao fim do lote.
+
+## Nível 2 — critério do confronto (Parte D)
+
+Mapeamento regra→risco esperado: **fracionamento OU 2+ operações atípicas → alto** (tipologia clássica ou desvio recorrente); **1 operação atípica → medio** (desvio pontual, pode ter explicação legítima); **nenhuma sinalização → baixo**. Reporto concordância exata e também a distância ordinal entre níveis (baixo=0, medio=1, alto=2), porque "medio × alto" é divergência menor que "baixo × alto". Observação relevante da base: **nenhum cliente é sinalizado pelas duas regras ao mesmo tempo** — por isso o critério composto sugerido no enunciado ("sinalizado pelas duas → alto") não teria nenhum caso; adaptei mantendo o espírito.
+
 ## Stack e arquitetura
 
 - **Cliente LLM via endpoint compatível com OpenAI** (SDK `openai` + `base_url` no `.env`): Gemini e Groq expõem o mesmo contrato, então trocar de provedor é editar três variáveis — nenhuma linha de código muda. Escolhido para não acoplar o case a um fornecedor e respeitar a restrição de camada gratuita.
