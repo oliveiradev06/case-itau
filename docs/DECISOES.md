@@ -32,6 +32,22 @@ O enunciado pede o top-10 "ordenados pelo número de sinalizações, com o volum
 
 Com o critério adotado, o top-10 abre com os 4 fracionamentos (CLI-029, CLI-017, CLI-002, CLI-003), seguidos de CLI-014 (3 outliers) e dos clientes com 2 outliers. **Limitação honesta:** o corte em 10 deixa de fora o CLI-001 (11º), que tem um outlier de 15,6× a mediana — numa operação real, o tamanho do lote seria dimensionado pela capacidade da mesa, não por um número fixo.
 
+## Nível 2 — leitura do confronto (resultados da Parte D)
+
+**Números:** concordância exata de 30% (3/10), distância ordinal média de 0,8. Como o lote é justamente o top-10 mais sinalizado, o critério regra→risco esperado dá "alto" para todos — e o agente, olhando contexto (diversidade de contrapartes, mix de canais, % em espécie, direção das operações), moderou 7 casos. Divergência alta aqui não é defeito: é o comportamento previsto quando uma triagem de recall alto encontra uma camada de precisão.
+
+**Onde o agente parece ter razão (falsos positivos da regra):**
+- **CLI-028 (medio):** as duas operações "atípicas" são uma TED enviada e uma TED **recebida** de valor parecido, sem espécie no perfil — mais compatível com trânsito pontual de recursos do que com estruturação.
+- **CLI-003 (medio):** o dia sinalizado mistura pagamento, depósito, transferência recebida e enviada — não é o padrão de **envio** fracionado que a Regra 1 quer capturar; a regra não olha a direção das operações (limitação dela, não do agente).
+- **CLI-017 (medio):** pico único de um dia em 13 operações com 12 contrapartes distintas; atenção se justifica, alarme não.
+
+**Onde a regra parece ter razão (o agente errou a mão):**
+- **CLI-029 (baixo):** o agente citou diversificação de contrapartes e pouco uso de espécie, mas ignorou o detalhe mais incriminador — as 4 operações do dia 26/05 somam R$ 71,3 mil com **todas entre R$ 14,3 mil e R$ 19,4 mil, coladas no limite de R$ 20 mil**. Distribuir valores "por baixo do radar" é a assinatura do smurfing; diversificação não neutraliza isso. Este caso eu devolveria para análise humana.
+
+**Achado transversal (e o mais importante do case):** dois pareceres citam números que não batem com a base — CLI-003 ("TED 30.215,78"; o correto é 30.705,78) e CLI-028 ("mais de 60% do volume individualmente"; individualmente são 31,2% e 28,0%). O nível de risco atribuído pode até ser defensável, mas **parecer com número não rastreável não pode ir para a mesa** — é a materialização da limitação já registrada e da tese do case: LLM interpreta bem, mas todo número que ela escreve precisa ser verificado por código.
+
+**Conclusão de desenho:** regra e agente não competem — a regra garante que nada escapa da triagem (recall), o agente prioriza a fila com contexto (precisão), e um validador aritmético entre o agente e a mesa fecha o ciclo.
+
 ## Reuso do Nível 1 no Nível 2
 
 As regras nasceram como funções puras no notebook e migraram para `nivel_2/regras.py` sem mudança de lógica — só parametrizei o caminho do arquivo. O que eu faria diferente desde o começo: criar o módulo primeiro e fazer o notebook importar dele (uma única fonte de verdade); mantive a duplicação porque o enunciado pede o notebook autocontido com saídas, e sincronizar os dois manualmente por 24h é risco menor que reestruturar no meio.
@@ -49,7 +65,7 @@ Mapeamento regra→risco esperado: **fracionamento OU 2+ operações atípicas �
 
 ## Stack e arquitetura
 
-- **Cliente LLM via endpoint compatível com OpenAI** (SDK `openai` + `base_url` no `.env`): Gemini e Groq expõem o mesmo contrato, então trocar de provedor é editar três variáveis — nenhuma linha de código muda. Escolhido para não acoplar o case a um fornecedor e respeitar a restrição de camada gratuita.
+- **Cliente LLM via endpoint compatível com OpenAI** (SDK `openai` + `base_url` no `.env`): Gemini e Groq expõem o mesmo contrato, então trocar de provedor é editar três variáveis — nenhuma linha de código muda. Escolhido para não acoplar o case a um fornecedor e respeitar a restrição de camada gratuita. **A aposta se pagou no meio do desenvolvimento:** a conta Google disponível não tinha acesso ao AI Studio (verificação de conta pendente) e a migração para o Groq custou literalmente o `.env`; no Groq, o modelo planejado (`llama-3.3-70b-versatile`) havia sido descontinuado — a consulta a `/models` levou ao `openai/gpt-oss-120b`, sem tocar no código.
 - **Segurança da chave:** `.env` no `.gitignore` desde o primeiro commit; `.env.example` documenta as variáveis sem valores.
 
 ## Limitações conhecidas
@@ -68,4 +84,17 @@ Mapeamento regra→risco esperado: **fracionamento OU 2+ operações atípicas �
 
 ## O que faria com mais tempo
 
-*(preenchido ao final)*
+- **Nível 3 — trilha B (servidor MCP):** é a que eu escolheria, porque reaproveita 100% das ferramentas
+  prontas e testa uma habilidade real de integração. Como faria: expor as três funções de `tools.py`
+  num servidor MCP via stdio (SDK `mcp` do Python), e criar uma variante do agente que descobre e chama
+  as ferramentas por uma sessão MCP em vez de import direto. Validação: rodar o mesmo lote dos 10
+  clientes pelos dois caminhos e conferir que os pareceres saem equivalentes (mesmas ferramentas
+  chamadas, mesmos números consultados).
+- **Validação aritmética dos pareceres:** extrair os números citados pela LLM e conferi-los contra o
+  dossiê, rejeitando pareceres com valores não rastreáveis (fecha a limitação registrada acima).
+- **Testes unitários das regras** (pytest): casos de borda dos limiares (soma exatamente 50k, operação
+  exatamente 20k, cliente com exatamente 3 operações) — hoje a validação é demonstrativa no notebook.
+- **Cache de respostas por conteúdo:** o lote já é retomável por cliente; um cache por hash do dossiê
+  evitaria re-análise até quando o cliente muda de posição no ranking.
+- **Docker:** um `Dockerfile` + `docker compose run` para eliminar o "funciona na minha máquina" da
+  correção (bônus do enunciado que eu atacaria primeiro).

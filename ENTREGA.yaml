@@ -1,7 +1,7 @@
 candidato: Joao Oliveira
 modelo_usado: openai/gpt-oss-120b
 provedor: groq
-horas_dedicadas: 0  # atualizado ao final
+horas_dedicadas: 8
 
 nivel_1:
   limpeza_dados:      {status: completo, onde: "nivel_1/nivel_1.ipynb, células 2-4"}
@@ -12,10 +12,10 @@ nivel_1:
 
 nivel_2:
   regras_em_escala: {status: completo, onde: "nivel_2/regras.py + outputs/nivel2_top10_clientes.csv"}
-  ferramentas:      {status: nao_feito, plano: "docs/DECISOES.md"}
-  agente:           {status: nao_feito, plano: "docs/DECISOES.md"}
-  lote:             {status: nao_feito, plano: "docs/DECISOES.md"}
-  confronto:        {status: nao_feito, plano: "docs/DECISOES.md"}
+  ferramentas:      {status: completo, onde: "nivel_2/tools.py"}
+  agente:           {status: completo, onde: "nivel_2/agente.py (tool_choice=auto; ferramentas variam por caso — ver outputs/nivel2_lote_resumo.csv)"}
+  lote:             {status: completo, onde: "outputs/nivel2_pareceres.jsonl + nivel2_lote_resumo.csv (custo e latência por cliente)"}
+  confronto:        {status: completo, onde: "nivel_2/confronto.py + outputs/nivel2_confronto.csv; análise em docs/DECISOES.md"}
 
 nivel_3:
   trilha_escolhida: null

@@ -1,0 +1,11 @@
+cliente_id,nivel_risco_agente,ferramentas_chamadas,chamadas_llm,tokens_entrada,tokens_saida,custo_estimado_usd,latencia_s
+CLI-029,baixo,3,4,4243,848,0.001272,13.3
+CLI-017,medio,3,4,4316,885,0.001311,3.49
+CLI-002,alto,3,4,4214,804,0.001235,20.52
+CLI-003,medio,3,4,4195,822,0.001246,20.29
+CLI-014,medio,2,3,2910,841,0.001067,16.02
+CLI-023,alto,2,3,2768,616,0.000877,17.73
+CLI-028,medio,2,3,2900,771,0.001013,11.55
+CLI-013,alto,2,3,2888,962,0.001155,12.67
+CLI-005,medio,2,3,2870,773,0.00101,35.78
+CLI-026,medio,2,3,2856,752,0.000992,2.95
