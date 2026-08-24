@@ -65,7 +65,7 @@ Mapeamento regra→risco esperado: **fracionamento OU 2+ operações atípicas �
 
 ## Stack e arquitetura
 
-- **Cliente LLM via endpoint compatível com OpenAI** (SDK `openai` + `base_url` no `.env`): Gemini e Groq expõem o mesmo contrato, então trocar de provedor é editar três variáveis — nenhuma linha de código muda. Escolhido para não acoplar o case a um fornecedor e respeitar a restrição de camada gratuita. **A aposta se pagou no meio do desenvolvimento:** a conta Google disponível não tinha acesso ao AI Studio (verificação de conta pendente) e a migração para o Groq custou literalmente o `.env`; no Groq, o modelo planejado (`llama-3.3-70b-versatile`) havia sido descontinuado — a consulta a `/models` levou ao `openai/gpt-oss-120b`, sem tocar no código.
+- **Cliente LLM via endpoint compatível com OpenAI** (SDK `openai` + `base_url` no `.env`): Gemini e Groq expõem o mesmo contrato, então trocar de provedor é editar três variáveis — nenhuma linha de código muda. Escolhido para não acoplar o case a um fornecedor e respeitar a restrição de camada gratuita. **A aposta se pagou no meio do desenvolvimento:** o AI Studio não estava acessível na conta Google disponível e a migração para o Groq custou literalmente o `.env`; no Groq, o modelo planejado (`llama-3.3-70b-versatile`) havia sido descontinuado — a consulta a `/models` levou ao `openai/gpt-oss-120b`, sem tocar no código.
 - **Segurança da chave:** `.env` no `.gitignore` desde o primeiro commit; `.env.example` documenta as variáveis sem valores.
 
 ## Limitações conhecidas
